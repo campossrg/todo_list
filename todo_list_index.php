@@ -22,7 +22,7 @@
 	?>
 </head>
 <body>
-	<div id="dv_main" class="container">
+	<div id="dv_main" class="container-fluid">
 		<div class="row">
 			<div id="dv_title" class="col-md-9 well well-sm">
 				<h1 style="font-family: Impact, fantasy;">PERSONAL NOTES</h1> 
@@ -35,12 +35,72 @@
 				</button>
 			</div>
 		</div>
-		<div class="row">
-			<div id="dv_panel_left" class="col-md-2">
+		<div class="row" id="dv_content">
+			<div id="dv_panel_left" class="col-md-2 panel panel_default">
 				LEFT	
 			</div>
-			<div id="dv_panel_right" class="col-md-7">
-				RIGHT
+			<div id="dv_panel_right" class="col-md-7 panel panel_default">
+				right<br>		
+				right<br>		
+				right<br>		
+				right<br>		
+				right<br>		
+				right<br>		
+				right<br>		
+				right<br>		
+				right<br>		
+				right<br>		
+				right<br>		
+				right<br>		
+				right<br>		
+				right<br>		
+				right<br>		
+				right<br>		
+				right<br>		
+				right<br>		
+				right<br>		
+				right<br>		
+				right<br>		
+				right<br>		
+				right<br>		
+				right<br>		
+				right<br>		
+				right<br>		
+				right<br>		
+				right<br>		
+				right<br>		
+				right<br>		
+				right<br>		
+				right<br>		
+				right<br>		
+				right<br>		
+				right<br>		
+				right<br>		
+				right<br>		
+				right<br>		
+				right<br>		
+				right<br>		
+				right<br>		
+				right<br>		
+				right<br>		
+				right<br>		
+				right<br>		
+				right<br>		
+				right<br>		
+				right<br>		
+				right<br>		
+				right<br>		
+				right<br>		
+				right<br>		
+				right<br>		
+				right<br>		
+				right<br>		
+				right<br>		
+				right<br>		
+				right<br>		
+				right<br>		
+				right<br>		
+				right<br>		
 					
 				</div>
 				<div id="dv_body">
