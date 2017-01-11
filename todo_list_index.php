@@ -37,75 +37,22 @@
 		</div>
 		<div class="row" id="dv_content">
 			<div id="dv_panel_left" class="col-md-2 panel panel_default">
-				LEFT	
+				<?php
+					$sql = "SELECT notesTitle FROM table_notes ORDER BY notesIndex";
+					foreach ($conn->query($sql) as $row) {
+						echo "<h3>". strtoupper($row['notesTitle']) . "</h3><br>";
+					}
+				?>		
 			</div>
 			<div id="dv_panel_right" class="col-md-7 panel panel_default">
-				right<br>		
-				right<br>		
-				right<br>		
-				right<br>		
-				right<br>		
-				right<br>		
-				right<br>		
-				right<br>		
-				right<br>		
-				right<br>		
-				right<br>		
-				right<br>		
-				right<br>		
-				right<br>		
-				right<br>		
-				right<br>		
-				right<br>		
-				right<br>		
-				right<br>		
-				right<br>		
-				right<br>		
-				right<br>		
-				right<br>		
-				right<br>		
-				right<br>		
-				right<br>		
-				right<br>		
-				right<br>		
-				right<br>		
-				right<br>		
-				right<br>		
-				right<br>		
-				right<br>		
-				right<br>		
-				right<br>		
-				right<br>		
-				right<br>		
-				right<br>		
-				right<br>		
-				right<br>		
-				right<br>		
-				right<br>		
-				right<br>		
-				right<br>		
-				right<br>		
-				right<br>		
-				right<br>		
-				right<br>		
-				right<br>		
-				right<br>		
-				right<br>		
-				right<br>		
-				right<br>		
-				right<br>		
-				right<br>		
-				right<br>		
-				right<br>		
-				right<br>		
-				right<br>		
-				right<br>		
-				right<br>		
-					
-				</div>
-				<div id="dv_body">
-					
-				</div>
+				<?php
+					$sql = "SELECT * FROM table_notes ORDER BY notesIndex";
+					foreach ($conn->query($sql) as $row) {
+						echo "<h2>". $row['notesTitle'] . "<small><i>". $row['notesTag'] ."</small></h2><br>";
+						echo "<span>". $row['notesContent'] ."</span><br>";
+					}
+				?>				
+			</div>
 			</div>
 		</div>
 	</div>
