@@ -9,10 +9,11 @@ will control a list of notes classified by categories and in a near future keepe
 
 BASICS
 - <del>Build the skeleton of the project</del>
+- Show the content of the selected value on left panel.
 - Add an "erase" button.
-- Categorize the notes.
 - Add tags to notes
 - Add notebook for each collection of notes
+- Categorize the notes.
 
 DATABASE
 - Add functionality to "New note" button.

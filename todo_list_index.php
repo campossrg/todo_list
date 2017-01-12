@@ -36,20 +36,20 @@
 			</div>
 		</div>
 		<div class="row" id="dv_content">
-			<div id="dv_panel_left" class="col-md-2 panel panel_default">
+			<div id="dv_panel_left" class="col-md-2 panel list-group">
 				<?php
 					$sql = "SELECT notesTitle FROM table_notes ORDER BY notesIndex";
 					foreach ($conn->query($sql) as $row) {
-						echo "<h3>". strtoupper($row['notesTitle']) . "</h3><br>";
+						echo "<h3 class='txt_title'><a href='#' class='list-group-item' id='". $row['notesIndex'] ."'>". strtoupper($row['notesTitle']) . "</a></h3><br>";
 					}
-				?>		
+				?>
 			</div>
 			<div id="dv_panel_right" class="col-md-7 panel panel_default">
 				<?php
-					$sql = "SELECT * FROM table_notes ORDER BY notesIndex";
+					$sql = "SELECT * FROM table_notes WHERE notesIndex = "; //PENDIENTE
 					foreach ($conn->query($sql) as $row) {
-						echo "<h2>". $row['notesTitle'] . "<small><i>". $row['notesTag'] ."</small></h2><br>";
-						echo "<span>". $row['notesContent'] ."</span><br>";
+						echo "<h2 class='txt_title'>". $row['notesTitle'] . "<small>  ". $row['notesTag'] ."</small></h2><br>";
+						echo "<span><i>". $row['notesContent'] ."</i></span><br>";
 					}
 				?>				
 			</div>
@@ -57,4 +57,7 @@
 		</div>
 	</div>
 </body>
+<footer>
+	<small><a href="https://github.com/campossrg"> Github @ campos.srg</a></small>
+</footer>
 </html>

@@ -51,12 +51,22 @@ body {
 	padding-top: 1%;
 	padding-bottom: 1%;
 	padding-left: 2%;
-	padding-right: 1%;
+	padding-right: 2%;
 	border: black thin solid;
 	word-break: break-all;
 	overflow-y: auto;
 }
 
-.dv_notes {
-	border: black thin solid;
+.txt_title {
+	font-family: Impact, fantasy;
+}
+
+footer {
+	font-family: Impact, fantasy;
+	text-align: center;
+}
+
+a {						
+	color: inherit;					    /*REMOVE BLUE COLOR AND UNDERLINE*/
+	text-decoration: none !important;
 }
