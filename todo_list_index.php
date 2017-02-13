@@ -38,7 +38,7 @@
 		<div class="row" id="dv_content">
 			<div id="dv_panel_left" class="col-md-2 panel list-group">
 				<?php
-					$sql = "SELECT notesTitle FROM table_notes ORDER BY notesIndex";
+					$sql = "SELECT * FROM table_notes ORDER BY notesIndex";
 					foreach ($conn->query($sql) as $row) {
 						echo "<h3 class='txt_title'><a href='#' class='list-group-item' id='". $row['notesIndex'] ."'>". strtoupper($row['notesTitle']) . "</a></h3><br>";
 					}
