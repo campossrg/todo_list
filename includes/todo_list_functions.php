@@ -1,4 +1,5 @@
 <?php
+
 	function showHeadNotes(){
 		$sql = "SELECT * FROM table_notes ORDER BY notesIndex";
 		foreach ($conn->query($sql) as $row) {

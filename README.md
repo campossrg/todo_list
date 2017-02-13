@@ -20,3 +20,4 @@ DATABASE
 
 STYLE
 - <del>Add style to the webpage</del>
+- <del>Modify MVC structure</del>
