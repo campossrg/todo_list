@@ -3,7 +3,7 @@
 	$username = "root";
 	$password = "admin";
 	$dbname = "db_todo_list";
-	
+
 	//CONECTION
 	try 
 	{
