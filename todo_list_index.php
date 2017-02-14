@@ -44,8 +44,11 @@
 			</div>
 			<div id="dv_panel_right" class="col-md-7 panel panel_default">
 				<?php 
-					if(isset($_POST['btnNewNote'])) newNotes();
-					else showNotes();
+					if(isset($_POST['btnNewNote'])) require "templates\\newNoteForm.php";	//NEW FORM
+					else showNotes();														//SHOW FORM
+					if(isset($_POST['btn_new_note_submit'])) newNotes();					//SUBMIT FORM
+					if(isset($_POST['btn_edit_note_submit'])) editNotes();					//EDIT FORM
+					if(isset($_POST['btn_delete_note_submit'])) deleteNotes();				//DELETE FORM
 				?>
 			</div>
 			</div>

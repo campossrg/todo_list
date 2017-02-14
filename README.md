@@ -9,15 +9,18 @@ will control a list of notes classified by categories and in a near future keepe
 
 BASICS
 - <del>Build the skeleton of the project</del>
-- Show the content of the selected value on left panel.
+- <del>Show the content of the selected value on left panel.</del>
+- Add an "delete" button.
 - Add an "erase" button.
-- Add tags to notes
+- <del>Add tags to notes</del>
+- Select by tag
 - Add notebook for each collection of notes
-- Categorize the notes.
 
 DATABASE
-- Add functionality to "New note" button.
+- <del>Add functionality to "New note" button.</del>
+- <b>"Are you sure?" option to Edit/Delete.
+- Add functionality to edit button
+- Add functionality to delete button
 
 STYLE
 - <del>Add style to the webpage</del>
-- <del>Modify MVC structure</del>
