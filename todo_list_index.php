@@ -31,23 +31,22 @@
 		</div>
 		<div class="row">
 			<div id="dv_options_bar" class="col-md-9 well well-sm">
-				<button type="button" class="btn btn-default">
-					<span class="glyphicon glyphicon-ok-circle"></span> NEW NOTE
-				</button>
+				<form method="POST" action="todo_list_index.php">
+					<input type="submit" class="btn btn-default" name="btnNewNote" value="NEW NOTE"></input>
+				</form>
 			</div>
 		</div>
 		<div class="row" id="dv_content">
 			<div id="dv_panel_left" class="col-md-2 panel list-group">
 				<form method="POST" action="todo_list_index.php">
-				<?php
-					showHeadNotes();
-				?>
+				<?php showHeadNotes();?>
 				</form>
 			</div>
 			<div id="dv_panel_right" class="col-md-7 panel panel_default">
-				<?php
-					showNotes();
-				?>				
+				<?php 
+					if(isset($_POST['btnNewNote'])) newNotes();
+					else showNotes();
+				?>
 			</div>
 			</div>
 		</div>

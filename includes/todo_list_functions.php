@@ -1,12 +1,13 @@
 <?php
-
 	function showHeadNotes(){
 
 		global $conn;
 
 		$sql = "SELECT * FROM table_notes ORDER BY notesIndex";
 		foreach ($conn->query($sql) as $row) {
-			echo "<h3 class='txt_title'><input type='submit' class='list-group-item' name='". $row['notesIndex'] ."'>". strtoupper($row['notesTitle']) . "</input></h3><br>";
+			echo "<h3 class='txt_title'>
+			<input type='submit' class='list-group-item' name='btn". $row['notesIndex'] ."' value=". strtoupper($row['notesTitle']) ."></input>
+			</h3><br>";
 		}
 	}
 
@@ -20,7 +21,7 @@
 		}
 
 		foreach($notes_list as $note){
-			if(isset($_POST[$note])){
+			if(isset($_POST['btn' . $note])){
 				$sql = "SELECT * FROM table_notes WHERE notesIndex = " . $note; 
 				foreach ($conn->query($sql) as $row) {
 					echo "<h2 class='txt_title'>". $row['notesTitle'] . "<small>  ". $row['notesTag'] ."</small></h2><br>";
@@ -28,5 +29,23 @@
 				}
 			}
 		}		
+	}
+
+	function newNotes(){
+		require "templates\\newNoteForm.php";
+
+		if(isset($_POST['btnNewNoteSubmit'])){
+			require "templates\\newNoteForm.php";
+
+			echo "sdf";
+
+			$title = $_POST['txt_title'];
+			$tag = $_POST['txt_tag'];
+			$content = $_POST['txt_content'];
+
+			//if(!$_POST['txt_title']) 
+
+			//$sql = "INSERT * FROM table_notes WHERE notesIndex = " . $note; 
+		}
 	}
 ?>
