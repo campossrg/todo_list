@@ -35,15 +35,32 @@
 		require "templates\\newNoteForm.php";
 
 		if(isset($_POST['btnNewNoteSubmit'])){
-			require "templates\\newNoteForm.php";
-
-			echo "sdf";
+			$sql = $conn->prepare("INSERT INTO db_todo_list (notesTitle, notesTag, notesContent) 
+							   VALUES (:n1, :n2, :n3)");
 
 			$title = $_POST['txt_title'];
 			$tag = $_POST['txt_tag'];
 			$content = $_POST['txt_content'];
 
-			//if(!$_POST['txt_title']) 
+			try{
+				if(!$_POST['txt_title']) $error[] = "The title is not completed!";
+				if(!$_POST['txt_tag']) $error[] = "The tag is not completed!";
+				if(!$_POST['txt_content']) $error[] = "The content is not completed!";
+				if(isset($error)) foreach ($error as $e) echo "<p>" . $e . "</p>";
+
+				else{
+					$sql->execute(array(
+						"n1" => $title,
+						"n2" => $tag,
+						"n3" => $content
+					));
+
+					echo "Data submitted!!";
+				}
+			}
+			catch(PDOException $e){
+				echo "Insert failed: " . $e->getMessage();
+			}   
 
 			//$sql = "INSERT * FROM table_notes WHERE notesIndex = " . $note; 
 		}
