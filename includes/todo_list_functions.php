@@ -1,6 +1,15 @@
 <?php
-	function showHeadNotes(){
+	function allNotesIndex(){
+		global $conn;
 
+		$sql = "SELECT notesIndex FROM table_notes ORDER BY notesIndex"; 
+		foreach ($conn->query($sql) as $row) {
+			$notes_list[] = $row['notesIndex'];
+		}
+		return $notes_list;
+	}
+
+	function showHeadNotes(){
 		global $conn;
 
 		$sql = "SELECT * FROM table_notes ORDER BY notesIndex";
@@ -13,15 +22,12 @@
 
 	function showNotes(){
 		global $conn;
-		$notes_list = [];
-
-		$sql = "SELECT notesIndex FROM table_notes ORDER BY notesIndex"; 
-		foreach ($conn->query($sql) as $row) {
-			$notes_list[] = $row['notesIndex'];
-		}
+		$notes_list = allNotesIndex();		
+		session_start();
 
 		foreach($notes_list as $note){
 			if(isset($_POST['btn' . $note])){
+				$_SESSION["last_selected_id"] = $note;
 				$sql = "SELECT * FROM table_notes WHERE notesIndex = " . $note; 
 				foreach ($conn->query($sql) as $row) {
 					echo "<form class='form-horizontal' method='POST' action='todo_list_index.php'>
@@ -68,6 +74,7 @@
 				));
 
 				echo "Data submitted!!";
+				header("refresh:1;url=todo_list_index.php");
 			}
 		}
 		catch(PDOException $e){
@@ -112,19 +119,22 @@
 	}
 
 	function deleteNotes(){
-		/*global $conn;
+		global $conn;
+		$notes_list = allNotesIndex();	
+		$sql = "";	
 
-		$sql = $conn->prepare("DELETE FROM table_notes WHERE notesIndex = :n1");
-
-		//$id = last selected value
+		$sql = "DELETE FROM table_notes WHERE notesIndex = " . $_SESSION["last_selected_id"];
 
 		try{
-			$sql->execute("n1" => $id);
+			$conn->query($sql);
 
 			echo "Data deleted!!";
+			header("refresh:2;url=todo_list_index.php");
 		}
+
 		catch(PDOException $e){
 			echo "Delete failed: " . $e->getMessage();
-		}*/
+			header("refresh:1;url=todo_list_index.php");
+		}
 	}
 ?>
