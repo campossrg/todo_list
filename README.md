@@ -17,10 +17,10 @@ BASICS
 
 FUNCTIONALITY
 - <del>New note </del>
-- Edit note 
+- <del>Edit note </del>
 - <del>Delete note </del>
 - Tag note
-- Search note
+- <del>Search note</del>
 
 STYLE
 - Add style to the webpage

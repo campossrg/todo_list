@@ -32,7 +32,15 @@
 		<div class="row">
 			<div id="dv_options_bar" class="col-md-9 well well-sm">
 				<form method="POST" action="todo_list_index.php">
-					<input type="submit" class="btn btn-default" name="btnNewNote" value="NEW NOTE"></input>
+					<div class="col-sm-6">
+						<input type="text" class="form-control" id="txt_search" name="txtSearch" placeholder="Search an item...">
+					</div>
+					<div class="col-sm-1">
+						<input type="submit" class="btn btn-default" name="btnSearchNote" value="SEARCH"></input>
+					</div>
+					<div class="col-sm-4">
+						<input type="submit" class="btn btn-default" name="btnNewNote" value="NEW NOTE"></input>
+					</div>
 				</form>
 			</div>
 		</div>
@@ -46,6 +54,7 @@
 				<?php 
 					if(isset($_POST['btnNewNote'])) require "templates\\newNoteForm.php";					//NEW FORM
 					if(isset($_POST['btnEditNote'])) require "templates\\editNoteForm.php";					//EDIT FORM
+					if(isset($_POST['btnSearchNote'])) searchNotes();											//SEARCH
 					if(isset($_POST['btnDeleteNote'])) require "templates\\confirmEraseForm.php";			//DELETE FORM
 					else showNotes();																		//SHOW 
 					if(isset($_POST['btn_new_note_submit'])) newNotes();									//SUBMIT NEW
