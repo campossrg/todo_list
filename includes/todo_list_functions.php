@@ -1,4 +1,6 @@
 <?php
+	session_start();
+
 	function allNotesIndex(){
 		global $conn;
 
@@ -22,8 +24,7 @@
 
 	function showNotes(){
 		global $conn;
-		$notes_list = allNotesIndex();		
-		session_start();
+		$notes_list = allNotesIndex();	
 
 		foreach($notes_list as $note){
 			if(isset($_POST['btn' . $note])){
@@ -36,8 +37,8 @@
 									<h2 class='txt_title' col-sm-4>". $row['notesTitle'] . "<small>  ". $row['notesTag'] ."</small></h2>
 						  		</div>
 						  		<div class='row-md'>
-									<input type='submit' class='btn-warning btn-xs' name='btn_edit_note_submit' value='Edit'>
-									<input type='submit' class='btn-danger btn-xs' name='btn_delete_note_submit' value='Delete'>
+									<input type='submit' class='btn-warning btn-xs' name='btnEditNote' value='Edit'>
+									<input type='submit' class='btn-danger btn-xs' name='btnDeleteNote' value='Delete'>
 						  		</div><br>
 						  	</div>
 						  	<span><i>". $row['notesContent'] ."</i></span><br>
@@ -84,37 +85,34 @@
 	}
 
 	function editNotes(){
-		/*global $conn;
-
-		$sql = $conn->prepare("INSERT INTO table_notes (notesTitle, notesTag, notesContent) 
-						   VALUES (:n1, :n2, :n3)");
+		global $conn;
 
 		$title = $_POST['txt_title'];
 		$tag = $_POST['txt_tag'];
 		$content = $_POST['txt_content'];
+
+		$sql = "UPDATE table_notes SET notesTitle = '". $title ."', notesTag = '". $tag ."', notesContent = '". $content ."'
+			WHERE notesIndex = " . $_SESSION['last_selected_id'];
 
 		try{
 			if(!$_POST['txt_title']) $error[] = "The title is not completed!";
 			if(!$_POST['txt_tag']) $error[] = "The tag is not completed!";
 			if(!$_POST['txt_content']) $error[] = "The content is not completed!";
 			if(isset($error)){
-				require "templates\\newNoteForm.php";
+				require "templates\\editNoteForm.php";
 				foreach ($error as $e) echo "<p>" . $e . "</p>";
 			}
 
 			else{
-				$sql->execute(array(
-					"n1" => $title,
-					"n2" => $tag,
-					"n3" => $content
-				));
+				$conn->query($sql);
 
 				echo "Data submitted!!";
+				header("refresh:2;url=todo_list_index.php");
 			}
 		}
 		catch(PDOException $e){
 			echo "Edit failed: " . $e->getMessage();
-		}*/
+		}
 		
 	}
 
