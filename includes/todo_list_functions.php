@@ -139,29 +139,50 @@
 	function searchNotes(){
 		global $conn;
 
-		$sql = "SELECT * FROM table_notes WHERE notesTitle LIKE '%" . $_POST['txtSearch'] . "%'"; 
+		if($_POST['txtSearch']){ 	//CONTROL THAT IS SET
+			$sql = "SELECT * FROM table_notes WHERE notesTitle LIKE '%" . $_POST['txtSearch'] . "%'"; 
+
+			try {
+				foreach ($conn->query($sql) as $row) {
+					echo "<form class='form-horizontal' method='POST' action='todo_list_index.php'>
+						  	<div class='form-group'>
+						  		<div class='row-md'>
+									<h2 class='txt_title' col-sm-4>". $row['notesTitle'] . "<small>  ". $row['notesTag'] ."</small></h2>
+						  		</div>
+						  		<div class='row-md'>
+									<input type='submit' class='btn-warning btn-xs' name='btnEditNote' value='Edit'>
+									<input type='submit' class='btn-danger btn-xs' name='btnDeleteNote' value='Delete'>
+						  		</div><br>
+						  	</div>
+						  	<span><i>". $row['notesContent'] ."</i></span><br>
+						  </form>";
+				}	
+			} 
+
+			catch(PDOException $e) {
+				echo "Search failed: " . $e->getMessage();
+			}
+		}
+	}
+	function showTags(){ //PENDIENTE
+		global $conn;
+
+		$sql = "SELECT notesTag FROM table_notes";
 
 		try {
-			foreach ($conn->query($sql) as $row) {
-				echo "<form class='form-horizontal' method='POST' action='todo_list_index.php'>
-					  	<div class='form-group'>
-					  		<div class='row-md'>
-								<h2 class='txt_title' col-sm-4>". $row['notesTitle'] . "<small>  ". $row['notesTag'] ."</small></h2>
-					  		</div>
-					  		<div class='row-md'>
-								<input type='submit' class='btn-warning btn-xs' name='btnEditNote' value='Edit'>
-								<input type='submit' class='btn-danger btn-xs' name='btnDeleteNote' value='Delete'>
-					  		</div><br>
-					  	</div>
-					  	<span><i>". $row['notesContent'] ."</i></span><br>
-					  </form>";
-			}	
+			$tagList = array();
+			foreach ($conn->query($sql) as $row){
+				foreach ($tagList as $tag) {
+					if($tag!==$row['notesTag']){
+						$tagList[] = $row['notesTag'];
+						echo "<option value='". $row['notesTag'] ."'>". $row['notesTag'] ."</option>";
+					}
+				}
+			} 
 		} 
 
-		catch(PDOException $e) {
-			echo "Search failed: " . $e->getMessage();
+		catch (PDOException $e) {			
+				echo "Tags error: " . $e->getMessage();
 		}
-
-		
 	}
 ?>

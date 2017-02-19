@@ -41,6 +41,11 @@
 					<div class="col-sm-4">
 						<input type="submit" class="btn btn-default" name="btnNewNote" value="NEW NOTE"></input>
 					</div>
+					Tag
+					<select name='tagSelectForm'>
+				  		<option value=''>Select..</option>
+						<?php showTags(); ?>
+					</select>
 				</form>
 			</div>
 		</div>
@@ -54,7 +59,7 @@
 				<?php 
 					if(isset($_POST['btnNewNote'])) require "templates\\newNoteForm.php";					//NEW FORM
 					if(isset($_POST['btnEditNote'])) require "templates\\editNoteForm.php";					//EDIT FORM
-					if(isset($_POST['btnSearchNote'])) searchNotes();											//SEARCH
+					if(isset($_POST['btnSearchNote'])) searchNotes();										//SEARCH
 					if(isset($_POST['btnDeleteNote'])) require "templates\\confirmEraseForm.php";			//DELETE FORM
 					else showNotes();																		//SHOW 
 					if(isset($_POST['btn_new_note_submit'])) newNotes();									//SUBMIT NEW
