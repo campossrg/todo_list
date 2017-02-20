@@ -21,6 +21,7 @@ FUNCTIONALITY
 - <del>Delete note </del>
 - Tag note
 - <del>Search note</del>
+- Auth form
 
 STYLE
 - Add style to the webpage

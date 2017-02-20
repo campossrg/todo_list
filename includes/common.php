@@ -1,5 +1,10 @@
 <?php
+	/*CONSTANT VARIABLES*/
+
 	session_start();
+	define('LOGGED_IN', true);
+
+	/*FUNCTIONS*/
 
 	function allNotesIndex(){
 		global $conn;
@@ -31,7 +36,7 @@
 				$_SESSION["last_selected_id"] = $note;
 				$sql = "SELECT * FROM table_notes WHERE notesIndex = " . $note; 
 				foreach ($conn->query($sql) as $row) {
-					echo "<form class='form-horizontal' method='POST' action='todo_list_index.php'>
+					echo "<form class='form-horizontal' method='POST' action='index.php'>
 						  	<div class='form-group'>
 						  		<div class='row-md'>
 									<h2 class='txt_title' col-sm-4>". $row['notesTitle'] . "<small>  ". $row['notesTag'] ."</small></h2>
@@ -75,7 +80,7 @@
 				));
 
 				echo "Data submitted!!";
-				header("refresh:1;url=todo_list_index.php");
+				header("refresh:1;url=index.php");
 			}
 		}
 		catch(PDOException $e){
@@ -107,7 +112,7 @@
 				$conn->query($sql);
 
 				echo "Data submitted!!";
-				header("refresh:2;url=todo_list_index.php");
+				header("refresh:2;url=index.php");
 			}
 		}
 		catch(PDOException $e){
@@ -127,12 +132,12 @@
 			$conn->query($sql);
 
 			echo "Data deleted!!";
-			header("refresh:2;url=todo_list_index.php");
+			header("refresh:2;url=index.php");
 		}
 
 		catch(PDOException $e){
 			echo "Delete failed: " . $e->getMessage();
-			header("refresh:1;url=todo_list_index.php");
+			header("refresh:1;url=index.php");
 		}
 	}
 
@@ -144,7 +149,7 @@
 
 			try {
 				foreach ($conn->query($sql) as $row) {
-					echo "<form class='form-horizontal' method='POST' action='todo_list_index.php'>
+					echo "<form class='form-horizontal' method='POST' action='index.php'>
 						  	<div class='form-group'>
 						  		<div class='row-md'>
 									<h2 class='txt_title' col-sm-4>". $row['notesTitle'] . "<small>  ". $row['notesTag'] ."</small></h2>
@@ -172,13 +177,38 @@
 		try {
 			$tagList = array();
 			foreach ($conn->query($sql) as $row){
-				foreach ($tagList as $tag) {
-					if($tag!==$row['notesTag']){
-						$tagList[] = $row['notesTag'];
-						echo "<option value='". $row['notesTag'] ."'>". $row['notesTag'] ."</option>";
+				if (empty($tagList)){
+					$tagList[] = $row['notesTag']; 
+					echo "<option value='". $row['notesTag'] ."'>". $row['notesTag'] ."</option>";
+				} 
+				else{
+					foreach ($tagList as $tag) {
+						if($tag!==$row['notesTag']){
+							$tagList[] = $row['notesTag'];
+							echo "<option value='". $row['notesTag'] ."'>". $row['notesTag'] ."</option>";
+						}
 					}
-				}
+				}				
 			} 
+		} 
+
+		catch (PDOException $e) {			
+				echo "Tags error: " . $e->getMessage();
+		}
+	}
+
+	function showSelectedTag(){
+		global $conn;
+
+		$sql = "SELECT notesTag FROM table_notes";
+
+		try {
+			$tagList = array();
+			foreach ($conn->query($sql) as $row) $tagList[] = $row['notesTag']; 	
+
+			switch($_POST['tagSelectForm']){		 
+				//Finish the case loop
+			}
 		} 
 
 		catch (PDOException $e) {			
