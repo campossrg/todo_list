@@ -15,7 +15,7 @@
 		</div>
 		<div class="row">
 			<div id="dv_options_bar" class="col-md-9 well well-sm">
-				<form method="POST" action="index.php">
+				<form method="POST" id="optionsBarForm" action="index.php">
 					<div class="col-sm-6">
 						<input type="text" class="form-control" id="txt_search" name="txtSearch" placeholder="Search an item...">
 					</div>
@@ -26,7 +26,7 @@
 						<input type="submit" class="btn btn-default" name="btnNewNote" value="NEW NOTE"></input>
 					</div>
 					Tag
-					<select name='tagSelectForm'>
+					<select name='tagSelectForm' onchange="document.getElementById('optionsBarForm').submit();"> <!--Select the option without submit-->
 				  		<option value=''>Select..</option> <!--favicon dropdown-->
 						<?php showTags(); ?>
 					</select>
@@ -44,7 +44,7 @@
 					if(isset($_POST['btnNewNote'])) require "templates\\newNoteForm.php";					//NEW FORM
 					if(isset($_POST['btnEditNote'])) require "templates\\editNoteForm.php";					//EDIT FORM
 					if(isset($_POST['btnSearchNote'])) searchNotes();										//SEARCH
-					if(isset($_POST['tagSelectNote'])) showSelectedTag();									//TAGS
+					if(isset($_POST['tagSelectForm'])) showSelectedTag();									//TAGS
 					if(isset($_POST['btnDeleteNote'])) require "templates\\confirmEraseForm.php";			//DELETE FORM
 					else showNotes();																		//SHOW 
 					if(isset($_POST['btn_new_note_submit'])) newNotes();									//SUBMIT NEW

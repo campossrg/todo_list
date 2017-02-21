@@ -176,7 +176,7 @@
 
 		try {
 			$tagList = array();
-			foreach ($conn->query($sql) as $row){
+			foreach ($conn->query($sql) as $row){ 		//TERMINAR LOOP
 				if (empty($tagList)){
 					$tagList[] = $row['notesTag']; 
 					echo "<option value='". $row['notesTag'] ."'>". $row['notesTag'] ."</option>";
@@ -204,10 +204,19 @@
 
 		try {
 			$tagList = array();
-			foreach ($conn->query($sql) as $row) $tagList[] = $row['notesTag']; 	
+			foreach($conn->query($sql) as $row){
+				if(empty($tagList))	$tagList[] = $row['notesTag']; 	//TERMINAR LOOP
+				else{
+					foreach($tagList as $tag){
+						if($tag !== $row['notesTag']) $tagList[] = $row['notesTag']; 	
+					}									
+				}
+			}
 
-			switch($_POST['tagSelectForm']){		 
-				//Finish the case loop
+			foreach($tagList as $tag) {
+				if($_POST['tagSelectForm'] === $tag){
+					$sql = "SELECT * FROM table_notes WHERE notesTag = " . $tag
+				}
 			}
 		} 
 

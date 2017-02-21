@@ -1,4 +1,4 @@
-<form class="form-horizontal" role="form" method="POST" action="todo_list_index.php">
+<form class="form-horizontal" role="form" method="POST" action="index.php">
 	<div class="form-group">
 		<label class="col-sm-2 control-label"><h4><b>TITLE</b></h4></label>
 		<div class="col-sm-9">
