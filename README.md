@@ -19,7 +19,7 @@ FUNCTIONALITY
 - <del>New note </del>
 - <del>Edit note </del>
 - <del>Delete note </del>
-- Tag note
+- <del>Tag note</del>
 - <del>Search note</del>
 - Auth form
 

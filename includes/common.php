@@ -176,17 +176,19 @@
 
 		try {
 			$tagList = array();
-			foreach ($conn->query($sql) as $row){ 		//TERMINAR LOOP
+			foreach ($conn->query($sql) as $row){ 		//ADD NON-REPEATED ELEMENTS
 				if (empty($tagList)){
 					$tagList[] = $row['notesTag']; 
 					echo "<option value='". $row['notesTag'] ."'>". $row['notesTag'] ."</option>";
 				} 
 				else{
-					foreach ($tagList as $tag) {
-						if($tag!==$row['notesTag']){
-							$tagList[] = $row['notesTag'];
-							echo "<option value='". $row['notesTag'] ."'>". $row['notesTag'] ."</option>";
-						}
+					$found = false;
+					foreach ($tagList as $tag) {		//SEARCH REPEATED ELEMENTS
+						if($tag === $row['notesTag']) $found = true;
+					}
+					if(!$found){
+						$tagList[] = $row['notesTag'];
+						echo "<option value='". $row['notesTag'] ."'>". $row['notesTag'] ."</option>";
 					}
 				}				
 			} 
@@ -204,18 +206,34 @@
 
 		try {
 			$tagList = array();
-			foreach($conn->query($sql) as $row){
-				if(empty($tagList))	$tagList[] = $row['notesTag']; 	//TERMINAR LOOP
+			foreach($conn->query($sql) as $row){		//ADD NON-REPEATED ELEMENTS
+				if(empty($tagList))	$tagList[] = $row['notesTag']; 	
 				else{
-					foreach($tagList as $tag){
-						if($tag !== $row['notesTag']) $tagList[] = $row['notesTag']; 	
+					$found = false;
+					foreach($tagList as $tag){			//SEARCH REPEATED ELEMENTS
+						if($tag === $row['notesTag']) $found = true;	
 					}									
+					if(!$found) $tagList[] = $row['notesTag']; 
 				}
 			}
 
 			foreach($tagList as $tag) {
 				if($_POST['tagSelectForm'] === $tag){
-					$sql = "SELECT * FROM table_notes WHERE notesTag = " . $tag
+					$sql = "SELECT * FROM table_notes WHERE notesTag = '" . $tag . "' ORDER BY notesIndex";
+					foreach ($conn->query($sql) as $row) {
+						echo "<form class='form-horizontal' method='POST' action='index.php'>
+						  	<div class='form-group'>
+						  		<div class='row-md'>
+									<h2 class='txt_title' col-sm-4>". $row['notesTitle'] . "<small>  ". $row['notesTag'] ."</small></h2>
+						  		</div>
+						  		<div class='row-md'>
+									<input type='submit' class='btn-warning btn-xs' name='btnEditNote' value='Edit'>
+									<input type='submit' class='btn-danger btn-xs' name='btnDeleteNote' value='Delete'>
+						  		</div><br>
+						  	</div>
+						  	<span><i>". $row['notesContent'] ."</i></span><br>
+						  </form>";
+					}				
 				}
 			}
 		} 
