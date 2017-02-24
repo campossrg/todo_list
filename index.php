@@ -20,14 +20,17 @@
 						<input type="text" class="form-control" id="txt_search" name="txtSearch" placeholder="Search an item...">
 					</div>
 					<div class="col-sm-1">
-						<input type="submit" class="btn btn-default" name="btnSearchNote" value="SEARCH"></input>
+						<button type="submit" class="btn btn-default" name="btnSearchNote">
+						    <i class="fa fa-search" aria-hidden="true"> SEARCH</i>
+						</button>
 					</div>
 					<div class="col-sm-4">
-						<input type="submit" class="btn btn-default" name="btnNewNote" value="NEW NOTE"></input>
+						<button type="submit" class="btn btn-default" name="btnNewNote">
+							<i class="fa fa-plus" aria-hidden="true"> ADD NOTE</i>
+						</input>
 					</div>
-					Tag
 					<select name='tagSelectForm' onchange="document.getElementById('optionsBarForm').submit();"> <!--Select the option without submit-->
-				  		<option value=''>Select..</option> <!--favicon dropdown-->
+				  		<option value=''>Tags...</option> <!--favicon dropdown-->
 						<?php showTags(); ?>
 					</select>
 				</form>
@@ -39,20 +42,24 @@
 				<?php showHeadNotes();?>
 				</form>
 			</div>
-			<div id="dv_panel_right" class="col-md-7 panel panel_default">
-				<?php 
-					if(isset($_POST['btnNewNote'])) require "templates\\newNoteForm.php";					//NEW FORM
-					if(isset($_POST['btnEditNote'])) require "templates\\editNoteForm.php";					//EDIT FORM
-					if(isset($_POST['btnSearchNote'])) searchNotes();										//SEARCH
-					if(isset($_POST['tagSelectForm'])) showSelectedTag();									//TAGS
-					if(isset($_POST['btnDeleteNote'])) require "templates\\confirmEraseForm.php";			//DELETE FORM
-					else showNotes();																		//SHOW 
-					if(isset($_POST['btn_new_note_submit'])) newNotes();									//SUBMIT NEW
-					if(isset($_POST['btn_edit_note_submit'])) editNotes();									//EDIT 
-					if(isset($_POST['btn_confirm_yes'])) deleteNotes();										//DELETE
-					if(isset($_POST['btn_confirm_no'])) echo "Data erase canceled.";
-				?>
-			</div>
+			<div id="dv_panel_right" class="col-md-7 panel list-group">
+				<div id="dv_panel_right_upper" class="col-md-7 panel panel_default">
+					Upper notes
+				</div>
+				<div id="dv_panel_right_lower" class="col-md-7 panel panel_default">
+					<?php 
+						if(isset($_POST['btnNewNote'])) require "templates\\newNoteForm.php";					//NEW FORM
+						if(isset($_POST['btnEditNote'])) require "templates\\editNoteForm.php";					//EDIT FORM
+						if(isset($_POST['btnSearchNote'])) searchNotes();										//SEARCH
+						if(isset($_POST['tagSelectForm'])) showSelectedTag();									//TAGS
+						if(isset($_POST['btnDeleteNote'])) require "templates\\confirmEraseForm.php";			//DELETE FORM
+						else showNotes();																		//SHOW 
+						if(isset($_POST['btn_new_note_submit'])) newNotes();									//SUBMIT NEW
+						if(isset($_POST['btn_edit_note_submit'])) editNotes();									//EDIT 
+						if(isset($_POST['btn_confirm_yes'])) deleteNotes();										//DELETE
+						if(isset($_POST['btn_confirm_no'])) echo "Data erase canceled.";
+					?>
+				</div>
 			</div>
 		</div>
 	</div>

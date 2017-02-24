@@ -24,5 +24,8 @@ FUNCTIONALITY
 - Auth form
 
 STYLE
-- Add style to the webpage
+- Add style to the webpage:
+	Notebooks on left.
+	Notes of notebook on upper-right.
+	Content of notes on lower-right.
 - Add collection tabs on top
