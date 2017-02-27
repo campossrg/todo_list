@@ -38,13 +38,13 @@
 		</div>
 		<div class="row" id="dv_content">
 			<div id="dv_panel_left" class="col-md-2 panel list-group">
-				<form method="POST" action="index.php">
-				<?php showHeadNotes();?>
-				</form>
+				<?php showNotebooks() ?>
 			</div>
 			<div id="dv_panel_right" class="col-md-7 panel list-group">
-				<div id="dv_panel_right_upper" class="col-md-7 panel panel_default">
-					Upper notes
+				<div id="dv_panel_right_upper" class="col-md-7 list-group">
+					<form method="POST" action="index.php">
+						<?php //showHeadNotes();?> <!--PENDIENTE-->
+					</form>
 				</div>
 				<div id="dv_panel_right_lower" class="col-md-7 panel panel_default">
 					<?php 

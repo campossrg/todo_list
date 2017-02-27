@@ -15,6 +15,12 @@
 		</div>
 	</div>
 	<div class="form-group">
+		<select name='txt_notebook'>
+			<option value=''>Notebooks..</option>
+				<?php showNotebooks(); ?>
+		</select>
+	</div>
+	<div class="form-group">
 		<div class="col-sm-10">
 			<input type="submit" name="btn_new_note_submit" id="btnNewNoteSubmit" value="Submit" class="btn btn-primary">
 		</div>

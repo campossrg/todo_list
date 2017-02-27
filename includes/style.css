@@ -31,7 +31,7 @@ body {
 }
 
 #dv_panel_left {
-	height: 600px;
+	height: 700px;
 	background-color: #f8fca6;
 	float: left;
 	text-align: center;
@@ -44,7 +44,7 @@ body {
 }
 
 #dv_panel_right {
-	height: 600px;
+	height: 700px;
 	background-color: #f8fca6;
 	float: left;
 	border: black thin solid;

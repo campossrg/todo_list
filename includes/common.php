@@ -19,11 +19,9 @@
 	function showHeadNotes(){
 		global $conn;
 
-		$sql = "SELECT * FROM table_notes ORDER BY notesIndex";
+		$sql = "SELECT notesIndex, notesTitle FROM table_notes ORDER BY notesIndex";
 		foreach ($conn->query($sql) as $row) {
-			echo "<h3 class='txt_title'>
-			<input type='submit' class='list-group-item' name='btn". $row['notesIndex'] ."' value=". strtoupper($row['notesTitle']) ."></input>
-			</h3><br>";
+			echo "<button type='submit' class='list-group-item' name='btn". $row['notesIndex'] ."'>". strtoupper($row['notesTitle']) ."</button>";
 		}
 	}
 
@@ -39,7 +37,9 @@
 					echo "<form class='form-horizontal' method='POST' action='index.php'>
 						  	<div class='form-group'>
 						  		<div class='row-md'>
-									<h2 class='txt_title' col-sm-4>". $row['notesTitle'] . "<small>  ". $row['notesTag'] ."</small></h2>
+									<h2 class='txt_title' col-sm-4>". $row['notesTitle'] . "
+									<small>  ". $row['notesTag'] ."</small>
+									<small>  ". $row['notesNotebook'] ."</small></h2>
 						  		</div>
 						  		<div class='row-md'>
 									<input type='submit' class='btn-warning btn-xs' name='btnEditNote' value='Edit'>
@@ -56,17 +56,19 @@
 	function newNotes(){
 		global $conn;
 
-		$sql = $conn->prepare("INSERT INTO table_notes (notesTitle, notesTag, notesContent) 
-						   VALUES (:n1, :n2, :n3)");
+		$sql = $conn->prepare("INSERT INTO table_notes (notesTitle, notesTag, notesContent, notesNotebook) 
+						   VALUES (:n1, :n2, :n3, :n4)");
 
 		$title = $_POST['txt_title'];
 		$tag = $_POST['txt_tag'];
 		$content = $_POST['txt_content'];
+		$notebook = $_POST['txt_notebook'];
 
 		try{
 			if(!$_POST['txt_title']) $error[] = "The title is not completed!";
 			if(!$_POST['txt_tag']) $error[] = "The tag is not completed!";
 			if(!$_POST['txt_content']) $error[] = "The content is not completed!";
+			if(!$_POST['txt_notebook']) $error[] = "The notebook is not chosen!";
 			if(isset($error)){
 				require "templates\\newNoteForm.php";
 				foreach ($error as $e) echo "<p>" . $e . "</p>";
@@ -76,7 +78,8 @@
 				$sql->execute(array(
 					"n1" => $title,
 					"n2" => $tag,
-					"n3" => $content
+					"n3" => $content,
+					"n4" => $notebook
 				));
 
 				echo "Data submitted!!";
@@ -95,14 +98,16 @@
 		$title = $_POST['txt_title'];
 		$tag = $_POST['txt_tag'];
 		$content = $_POST['txt_content'];
+		$notebook = $_POST['txt_notebook'];
 
-		$sql = "UPDATE table_notes SET notesTitle = '". $title ."', notesTag = '". $tag ."', notesContent = '". $content ."'
+		$sql = "UPDATE table_notes SET notesTitle = '". $title ."', notesTag = '". $tag ."', notesContent = '". $content ."', notesNotebook = '". $notebook ."'
 			WHERE notesIndex = " . $_SESSION['last_selected_id'];
 
 		try{
 			if(!$_POST['txt_title']) $error[] = "The title is not completed!";
 			if(!$_POST['txt_tag']) $error[] = "The tag is not completed!";
 			if(!$_POST['txt_content']) $error[] = "The content is not completed!";
+			if(!$_POST['txt_notebook']) $error[] = "The notebook is not chosen!";
 			if(isset($error)){
 				require "templates\\editNoteForm.php";
 				foreach ($error as $e) echo "<p>" . $e . "</p>";
@@ -152,7 +157,9 @@
 					echo "<form class='form-horizontal' method='POST' action='index.php'>
 						  	<div class='form-group'>
 						  		<div class='row-md'>
-									<h2 class='txt_title' col-sm-4>". $row['notesTitle'] . "<small>  ". $row['notesTag'] ."</small></h2>
+									<h2 class='txt_title' col-sm-4>". $row['notesTitle'] . "
+									<small>  ". $row['notesTag'] ."</small>
+									<small>  ". $row['notesNotebook'] ."</small></h2>
 						  		</div>
 						  		<div class='row-md'>
 									<input type='submit' class='btn-warning btn-xs' name='btnEditNote' value='Edit'>
@@ -169,7 +176,7 @@
 			}
 		}
 	}
-	function showTags(){ //PENDIENTE
+	function showTags(){ 
 		global $conn;
 
 		$sql = "SELECT notesTag FROM table_notes";
@@ -240,6 +247,23 @@
 
 		catch (PDOException $e) {			
 				echo "Tags error: " . $e->getMessage();
+		}
+	}
+
+	function showNotebooks(){
+		global $conn;
+
+		$sql = "SELECT notebooksTitle FROM table_notebooks";
+
+
+		try{
+			foreach ($conn->query($sql) as $row) {
+				echo "<option value='". $row['notebooksTitle'] ."'>". $row['notebooksTitle'] ."</option>";
+			}
+		}
+
+		catch (PDOException $e) {			
+				echo "Notebooks error: " . $e->getMessage();
 		}
 	}
 ?>
