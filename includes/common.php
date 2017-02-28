@@ -16,43 +16,6 @@
 		return $notes_list;
 	}
 
-	function showHeadNotes(){
-		global $conn;
-
-		$sql = "SELECT notesIndex, notesTitle FROM table_notes ORDER BY notesIndex";
-		foreach ($conn->query($sql) as $row) {
-			echo "<button type='submit' class='list-group-item' name='btn". $row['notesIndex'] ."'>". strtoupper($row['notesTitle']) ."</button>";
-		}
-	}
-
-	function showNotes(){
-		global $conn;
-		$notes_list = allNotesIndex();	
-
-		foreach($notes_list as $note){
-			if(isset($_POST['btn' . $note])){
-				$_SESSION["last_selected_id"] = $note;
-				$sql = "SELECT * FROM table_notes WHERE notesIndex = " . $note; 
-				foreach ($conn->query($sql) as $row) {
-					echo "<form class='form-horizontal' method='POST' action='index.php'>
-						  	<div class='form-group'>
-						  		<div class='row-md'>
-									<h2 class='txt_title' col-sm-4>". $row['notesTitle'] . "
-									<small>  ". $row['notesTag'] ."</small>
-									<small>  ". $row['notesNotebook'] ."</small></h2>
-						  		</div>
-						  		<div class='row-md'>
-									<input type='submit' class='btn-warning btn-xs' name='btnEditNote' value='Edit'>
-									<input type='submit' class='btn-danger btn-xs' name='btnDeleteNote' value='Delete'>
-						  		</div><br>
-						  	</div>
-						  	<span><i>". $row['notesContent'] ."</i></span><br>
-						  </form>";
-				}
-			}
-		}		
-	}
-
 	function newNotes(){
 		global $conn;
 
@@ -88,8 +51,7 @@
 		}
 		catch(PDOException $e){
 			echo "Insert failed: " . $e->getMessage();
-		}
-		
+		}	
 	}
 
 	function editNotes(){
@@ -123,11 +85,11 @@
 		catch(PDOException $e){
 			echo "Edit failed: " . $e->getMessage();
 		}
-		
 	}
 
 	function deleteNotes(){
 		global $conn;
+
 		$notes_list = allNotesIndex();	
 		$sql = "";	
 
@@ -176,6 +138,7 @@
 			}
 		}
 	}
+
 	function showTags(){ 
 		global $conn;
 
@@ -250,7 +213,7 @@
 		}
 	}
 
-	function showNotebooks(){
+	function showNotebooksDrop(){
 		global $conn;
 
 		$sql = "SELECT notebooksTitle FROM table_notebooks";
@@ -258,12 +221,87 @@
 
 		try{
 			foreach ($conn->query($sql) as $row) {
-				echo "<option value='". $row['notebooksTitle'] ."'>". $row['notebooksTitle'] ."</option>";
+				echo "<option value='". $row['notebooksTitle'] ."'>". strtoupper($row['notebooksTitle']) ."</option>";
 			}
 		}
 
 		catch (PDOException $e) {			
 				echo "Notebooks error: " . $e->getMessage();
 		}
+	}
+
+	function showHeadNotebooks(){
+		global $conn;
+
+		$sql = "SELECT notebooksTitle FROM table_notebooks";
+
+
+		try{
+			foreach ($conn->query($sql) as $row) {
+				echo "<button type='submit' class='list-group-item' name='btn". $row['notebooksTitle'] ."'>". strtoupper($row['notebooksTitle']) ."</button>";
+			}
+		}
+
+		catch (PDOException $e) {			
+				echo "Notebooks error: " . $e->getMessage();
+		}
+	}
+
+	function showHeadNotes(){
+		global $conn;
+		$notebooksList = array();
+
+		$sql = "SELECT notebooksTitle FROM table_notebooks";
+
+		try{
+			foreach ($conn->query($sql) as $row) {
+				$notebooksList[] = $row['notebooksTitle'];
+			}
+
+			foreach ($notebooksList as $notebook){
+				if(isset($_POST['btn' . $notebook])){
+					$_SESSION['last_selected_notebook'] = $notebook;
+				}
+			}
+
+			$notebook = $_SESSION['last_selected_notebook'];
+			$sql = "SELECT notesIndex, notesTitle FROM table_notes WHERE notesNotebook = '" . $notebook . "' ORDER BY notesIndex";
+
+			foreach ($conn->query($sql) as $row) {
+				echo "<button type='submit' class='list-group-item' name='btn". $row['notesIndex'] ."'>". strtoupper($row['notesTitle']) ."</button>";
+			}
+		}
+
+		catch (PDOException $e) {			
+				echo "Notebooks error: " . $e->getMessage();
+		}
+	}
+
+	function showNotes(){
+		global $conn;
+		$notes_list = allNotesIndex();	
+
+		foreach($notes_list as $note){
+			if(isset($_POST['btn' . $note])){
+				$_SESSION["last_selected_id"] = $note;
+				$sql = "SELECT * FROM table_notes WHERE notesIndex = " . $note; 
+				foreach ($conn->query($sql) as $row) {
+					echo "<form class='form-horizontal' method='POST' action='index.php'>
+						  	<div class='form-group'>
+						  		<div class='row-md'>
+									<h2 class='txt_title' col-sm-4>". $row['notesTitle'] . "
+									<small>  ". $row['notesTag'] ."</small>
+									<small>  ". $row['notesNotebook'] ."</small></h2>
+						  		</div>
+						  		<div class='row-md'>
+									<input type='submit' class='btn-warning btn-xs' name='btnEditNote' value='Edit'>
+									<input type='submit' class='btn-danger btn-xs' name='btnDeleteNote' value='Delete'>
+						  		</div><br>
+						  	</div>
+						  	<span><i>". $row['notesContent'] ."</i></span><br>
+						  </form>";
+				}
+			}
+		}		
 	}
 ?>

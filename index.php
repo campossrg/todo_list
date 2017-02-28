@@ -37,16 +37,20 @@
 			</div>
 		</div>
 		<div class="row" id="dv_content">
-			<div id="dv_panel_left" class="col-md-2 panel list-group">
-				<?php showNotebooks() ?>
+			<div id="dv_panel_left" class="col-md-2 panel list-group">							<!-- PANEL LEFT -->
+			<div class="list-group">
+				<form method="POST" action="index.php">
+					<?php showHeadNotebooks() ?>
+				</form>
 			</div>
-			<div id="dv_panel_right" class="col-md-7 panel list-group">
+			</div>
+			<div id="dv_panel_right" class="col-md-7 panel list-group">							<!-- PANEL RIGHT UP -->
 				<div id="dv_panel_right_upper" class="col-md-7 list-group">
 					<form method="POST" action="index.php">
-						<?php //showHeadNotes();?> <!--PENDIENTE-->
+						<?php showHeadNotes(); ?>
 					</form>
 				</div>
-				<div id="dv_panel_right_lower" class="col-md-7 panel panel_default">
+				<div id="dv_panel_right_lower" class="col-md-7 panel panel_default">			<!-- PANEL RIGHT DOWN -->
 					<?php 
 						if(isset($_POST['btnNewNote'])) require "templates\\newNoteForm.php";					//NEW FORM
 						if(isset($_POST['btnEditNote'])) require "templates\\editNoteForm.php";					//EDIT FORM

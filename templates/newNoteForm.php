@@ -17,7 +17,7 @@
 	<div class="form-group">
 		<select name='txt_notebook'>
 			<option value=''>Notebooks..</option>
-				<?php showNotebooks(); ?>
+				<?php showNotebooksDrop(); ?>
 		</select>
 	</div>
 	<div class="form-group">
