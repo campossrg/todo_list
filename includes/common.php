@@ -1,25 +1,27 @@
 <?php
 	/*CONSTANT VARIABLES*/
-
 	session_start();
-	define('LOGGED_IN', true);
+	define('LOGGED_IN', false);
+
+	require_once "connection.php";
+	$db = new DB();
 
 	/*FUNCTIONS*/
 
 	function allNotesIndex(){
-		global $conn;
+		global $db;
 
 		$sql = "SELECT notesIndex FROM table_notes ORDER BY notesIndex"; 
-		foreach ($conn->query($sql) as $row) {
+		foreach ($db->conn->query($sql) as $row) {
 			$notes_list[] = $row['notesIndex'];
 		}
 		return $notes_list;
 	}
 
 	function newNotes(){
-		global $conn;
+		global $db;
 
-		$sql = $conn->prepare("INSERT INTO table_notes (notesTitle, notesTag, notesContent, notesNotebook) 
+		$sql = $db->conn->prepare("INSERT INTO table_notes (notesTitle, notesTag, notesContent, notesNotebook) 
 						   VALUES (:n1, :n2, :n3, :n4)");
 
 		$title = $_POST['txt_title'];
@@ -55,8 +57,8 @@
 	}
 
 	function editNotes(){
-		global $conn;
-
+		global $db;
+		
 		$title = $_POST['txt_title'];
 		$tag = $_POST['txt_tag'];
 		$content = $_POST['txt_content'];
@@ -76,7 +78,7 @@
 			}
 
 			else{
-				$conn->query($sql);
+				$db->conn->query($sql);
 
 				echo "Data submitted!!";
 				header("refresh:2;url=index.php");
@@ -88,15 +90,15 @@
 	}
 
 	function deleteNotes(){
-		global $conn;
-
+		global $db;
+		
 		$notes_list = allNotesIndex();	
 		$sql = "";	
 
 		$sql = "DELETE FROM table_notes WHERE notesIndex = " . $_SESSION["last_selected_id"];
 
 		try{
-			$conn->query($sql);
+			$db->conn->query($sql);
 
 			echo "Data deleted!!";
 			header("refresh:2;url=index.php");
@@ -109,13 +111,13 @@
 	}
 
 	function searchNotes(){
-		global $conn;
-
+		global $db;
+		
 		if($_POST['txtSearch']){ 	//CONTROL THAT IS SET
 			$sql = "SELECT * FROM table_notes WHERE notesTitle LIKE '%" . $_POST['txtSearch'] . "%'"; 
 
 			try {
-				foreach ($conn->query($sql) as $row) {
+				foreach ($db->conn->query($sql) as $row) {
 					echo "<form class='form-horizontal' method='POST' action='index.php'>
 						  	<div class='form-group'>
 						  		<div class='row-md'>
@@ -140,13 +142,13 @@
 	}
 
 	function showTags(){ 
-		global $conn;
-
+		global $db;
+		
 		$sql = "SELECT notesTag FROM table_notes";
 
 		try {
 			$tagList = array();
-			foreach ($conn->query($sql) as $row){ 		//ADD NON-REPEATED ELEMENTS
+			foreach ($db->conn->query($sql) as $row){ 		//ADD NON-REPEATED ELEMENTS
 				if (empty($tagList)){
 					$tagList[] = $row['notesTag']; 
 					echo "<option value='". $row['notesTag'] ."'>". $row['notesTag'] ."</option>";
@@ -170,13 +172,13 @@
 	}
 
 	function showSelectedTag(){
-		global $conn;
-
+		global $db;
+		
 		$sql = "SELECT notesTag FROM table_notes";
 
 		try {
 			$tagList = array();
-			foreach($conn->query($sql) as $row){		//ADD NON-REPEATED ELEMENTS
+			foreach($db->conn->query($sql) as $row){		//ADD NON-REPEATED ELEMENTS
 				if(empty($tagList))	$tagList[] = $row['notesTag']; 	
 				else{
 					$found = false;
@@ -190,7 +192,7 @@
 			foreach($tagList as $tag) {
 				if($_POST['tagSelectForm'] === $tag){
 					$sql = "SELECT * FROM table_notes WHERE notesTag = '" . $tag . "' ORDER BY notesIndex";
-					foreach ($conn->query($sql) as $row) {
+					foreach ($db->conn->query($sql) as $row) {
 						echo "<form class='form-horizontal' method='POST' action='index.php'>
 						  	<div class='form-group'>
 						  		<div class='row-md'>
@@ -214,13 +216,13 @@
 	}
 
 	function showNotebooksDrop(){
-		global $conn;
-
+		global $db;
+		
 		$sql = "SELECT notebooksTitle FROM table_notebooks";
 
 
 		try{
-			foreach ($conn->query($sql) as $row) {
+			foreach ($db->conn->query($sql) as $row) {
 				echo "<option value='". $row['notebooksTitle'] ."'>". strtoupper($row['notebooksTitle']) ."</option>";
 			}
 		}
@@ -231,13 +233,13 @@
 	}
 
 	function showHeadNotebooks(){
-		global $conn;
-
+		global $db;
+		
 		$sql = "SELECT notebooksTitle FROM table_notebooks";
 
 
 		try{
-			foreach ($conn->query($sql) as $row) {
+			foreach ($db->conn->query($sql) as $row) {
 				echo "<button type='submit' class='list-group-item' name='btn". $row['notebooksTitle'] ."'>". strtoupper($row['notebooksTitle']) ."</button>";
 			}
 		}
@@ -248,26 +250,27 @@
 	}
 
 	function showHeadNotes(){
-		global $conn;
+		global $db;
+		
 		$notebooksList = array();
 
 		$sql = "SELECT notebooksTitle FROM table_notebooks";
 
 		try{
-			foreach ($conn->query($sql) as $row) {
+			foreach ($db->conn->query($sql) as $row) {
 				$notebooksList[] = $row['notebooksTitle'];
 			}
 
 			foreach ($notebooksList as $notebook){
 				if(isset($_POST['btn' . $notebook])){
-					$_SESSION['last_selected_notebook'] = $notebook;
+					$_SESSION['last_selected_notebook'] = $notebook;	//Fix when is empty
 				}
 			}
 
 			$notebook = $_SESSION['last_selected_notebook'];
 			$sql = "SELECT notesIndex, notesTitle FROM table_notes WHERE notesNotebook = '" . $notebook . "' ORDER BY notesIndex";
 
-			foreach ($conn->query($sql) as $row) {
+			foreach ($db->conn->query($sql) as $row) {
 				echo "<button type='submit' class='list-group-item' name='btn". $row['notesIndex'] ."'>". strtoupper($row['notesTitle']) ."</button>";
 			}
 		}
@@ -278,14 +281,15 @@
 	}
 
 	function showNotes(){
-		global $conn;
+		global $db;
+		
 		$notes_list = allNotesIndex();	
 
 		foreach($notes_list as $note){
 			if(isset($_POST['btn' . $note])){
 				$_SESSION["last_selected_id"] = $note;
 				$sql = "SELECT * FROM table_notes WHERE notesIndex = " . $note; 
-				foreach ($conn->query($sql) as $row) {
+				foreach ($db->conn->query($sql) as $row) {
 					echo "<form class='form-horizontal' method='POST' action='index.php'>
 						  	<div class='form-group'>
 						  		<div class='row-md'>

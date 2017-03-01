@@ -1,11 +1,12 @@
 <?php
 	//SHOW CURRENT INFORMATION TO EDIT
-	global $conn;
+	global $db;
+	
 	if(!isset($_SESSION)) session_start();
 
 	$sql = "SELECT * FROM table_notes WHERE notesIndex = " . $_SESSION["last_selected_id"]; 
 
-	foreach ($conn->query($sql) as $row){
+	foreach ($db->conn->query($sql) as $row){
 		$txt_title = $row['notesTitle'];
 		$txt_tag = $row['notesTag'];
 		$txt_content = $row['notesContent'];

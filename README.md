@@ -13,7 +13,7 @@ BASICS
 - <del>Add an "delete" button.</del>
 - <del>Add an "erase" button.</del>
 - <del>Add tags to notes</del>
-- Add notebook for each collection of notes
+- <del>Add notebook for each collection of notes</del>
 
 FUNCTIONALITY
 - <del>New note </del>
@@ -21,6 +21,7 @@ FUNCTIONALITY
 - <del>Delete note </del>
 - <del>Tag note</del>
 - <del>Search note</del>
+- Install form
 - Auth form
 
 STYLE
