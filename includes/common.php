@@ -1,10 +1,26 @@
 <?php
 	/*CONSTANT VARIABLES*/
 	session_start();
-	define('LOGGED_IN', false);
 
-	require_once "connection.php";
-	$db = new DB();
+	if(file_exists('includes\\connection.php')){
+		require_once "connection.php";
+		$db = new DB();
+		define('INSTALLED_DB', false);
+	}
+
+	else{
+		//connection.php not found. Install.php will run
+		define('INSTALLED_DB', false);
+		session_destroy();
+	}
+
+	if(isset($_SESSION['user_id'])){
+		define('LOGGED_IN', true);
+	}
+
+	else{
+		define('LOGGED_IN', false);
+	}
 
 	/*FUNCTIONS*/
 

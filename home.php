@@ -1,4 +1,7 @@
-<?php require_once "templates\\header.php"; ?>
+<?php 
+	require_once "includes\\common.php";
+	require_once "templates\\header.php"; 
+?>
 
 <body>
 	<div id="dv_main" class="container-fluid">

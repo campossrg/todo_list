@@ -1,8 +1,10 @@
+<?php require_once "includes\\common.php"; ?>
+
 <div class="install">
 <?php
 	if( INSTALLED_DB == false ){
 ?>
-	<h1>Simple ToDo List - Installation</h1>
+	<h1>PERSONAL NOTES - Installation</h1>
 	<form method="post" action="db/setup.php">
 		<p>
 			<label>Database server</label>
@@ -53,8 +55,6 @@
 		
 	</form>
 <?php
-}// if( INSTALLED_DB == false )
-else {
+	}
+	else echo "<h3>Installation finished. Go back to <a href='index.php'>Main Page</a></h3>";
 ?>
-
-<h3>Installation finished. Go back to <a href="index.php">Main Page</a></h3>
