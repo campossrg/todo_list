@@ -1,12 +1,13 @@
 <?php
 	/*CONSTANT VARIABLES*/
 	session_start();
+	define('DIR_ROOT',dirname(__FILE__));
 
 	/*INSTALLATION CONFIRM*/
-	if(file_exists('db\\connection.php')){
+	if(file_exists('config.php')){
 		require_once "db\\connection.php";
 		$db = new DB();
-		define('INSTALLED_DB', false);
+		define('INSTALLED_DB', true);
 	}
 
 	else{
