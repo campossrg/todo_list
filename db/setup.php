@@ -1,7 +1,7 @@
 <?php 
-	require_once "includes\\common.php"; 
+	require_once "..\\includes\\common.php"; 
 
-	if(INSTALLED_DB == true) header("Location: index.php");
+	if(INSTALLED_DB == true) header("Location: ..\\index.php");
 
 	if(!isset($_POST)) header("Location: install.php");
 

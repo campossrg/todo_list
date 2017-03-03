@@ -21,8 +21,8 @@ FUNCTIONALITY
 - <del>Delete note </del>
 - <del>Tag note</del>
 - <del>Search note</del>
-- Install form
-- Auth form
+- Install and setup form
+- Login auth and register form
 
 STYLE
 - Add style to the webpage:

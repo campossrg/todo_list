@@ -2,8 +2,9 @@
 	/*CONSTANT VARIABLES*/
 	session_start();
 
-	if(file_exists('includes\\connection.php')){
-		require_once "connection.php";
+	/*INSTALLATION CONFIRM*/
+	if(file_exists('db\\connection.php')){
+		require_once "db\\connection.php";
 		$db = new DB();
 		define('INSTALLED_DB', false);
 	}
@@ -14,6 +15,7 @@
 		session_destroy();
 	}
 
+	/*lOGIN CONFIRMATION*/
 	if(isset($_SESSION['user_id'])){
 		define('LOGGED_IN', true);
 	}
@@ -23,7 +25,6 @@
 	}
 
 	/*FUNCTIONS*/
-
 	function allNotesIndex(){
 		global $db;
 
