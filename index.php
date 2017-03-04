@@ -6,10 +6,8 @@
 	if(INSTALLED_DB == false) header("Location: db\\install.php");
 
 	require_once "templates\\header.php";
+
+	require_once "templates\\loginForm.php";
+
+	require_once "templates\\footer.php"; 
 ?>
-
-LOGIN SECTION
-
-<!-- LOGIN -->
-
-<?php require_once "templates\\footer.php"; ?>
