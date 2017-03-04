@@ -26,37 +26,54 @@
 		}
 
 		else{
-			$connect = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
 
-			if(!$connect) throw new PDOException("Error Processing database connection", 1);
+			$connect = mysql_connect($servername, $username, $password);
+
+			if(!$connect) throw new PDOException("Error processing login connection on ". $servername, 1);
 			else{
-				if(!file_exists("config.php")){
-					try{
-						$configFile = fopen("config.php", 'w');
 
-						fwrite($configFile, "<?php\n\n");
+				$check_db = mysql_select_db($dbname);
 
-						$line = "\tdefine('DB_HOST', '". $servername ."'); \n";
-						fwrite($configFile, $line);
+				if(!$connect) throw new PDOException("Error processing database connection on ". $dbname, 1);
 
-						$line = "\tdefine('DB_USERNAME', '". $username ."'); \n";
-						fwrite($configFile, $line);
+				else{
+					if(!file_exists("config.php")){
+						try{
+							//DATABASE SETUP
+							$sql = file_get_contents('mysql.sql');
 
-						$line = "\tdefine('DB_PASSWORD', '". $password ."'); \n";
-						fwrite($configFile, $line);
+							$sql = explode('$', $sql);
+							foreach ($sql as $query) {
+								mysql_query($query);
+							}
 
-						$line = "\tdefine('DB_NAME', '". $dbname ."'); \n";
-						fwrite($configFile, $line);
+							//DATABASE PARAMETERS
+							$configFile = fopen("config.php", 'w');
 
-						//urlname to write
+							fwrite($configFile, "<?php\n\n");
 
-						fwrite($configFile, "\n?>");
-						fclose($configFile);
+							$line = "\tdefine('DB_HOST', '". $servername ."'); \n";
+							fwrite($configFile, $line);
 
-						header("Location: install.php");
-					}
-					catch(Exception $e){
-						echo "Unable to create the file: ". $e->getMessage();
+							$line = "\tdefine('DB_USERNAME', '". $username ."'); \n";
+							fwrite($configFile, $line);
+
+							$line = "\tdefine('DB_PASSWORD', '". $password ."'); \n";
+							fwrite($configFile, $line);
+
+							$line = "\tdefine('DB_NAME', '". $dbname ."'); \n";
+							fwrite($configFile, $line);
+
+							//urlname to write
+
+							fwrite($configFile, "\n?>");
+							fclose($configFile);
+
+							header("Location: install.php");
+						}
+						catch(Exception $e){
+							echo "Unable to create the file: ". $e->getMessage();
+						}
 					}
 				}
 			}

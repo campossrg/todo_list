@@ -21,7 +21,7 @@ FUNCTIONALITY
 - <del>Delete note </del>
 - <del>Tag note</del>
 - <del>Search note</del>
-- Install and setup form
+- <del>Install and setup form</del>
 - Login auth and register form
 
 STYLE

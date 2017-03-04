@@ -42,6 +42,4 @@
 <?php
 	}
 	else echo "<h3>Installation finished. Go back to <a href='..\\index.php'>Main Page</a></h3>";
-
-	require_once "..\\templates\\footer.php"
 ?>
