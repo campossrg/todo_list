@@ -6,7 +6,6 @@
 <div class="install">
 <?php
 	if( INSTALLED_DB == false ){
-		echo __FILE__. "\\..\\";
 ?>
 	<h1>PERSONAL NOTES - Installation</h1>
 	<form method="post" action="setup.php" style="margin-left: 2%">
@@ -42,7 +41,7 @@
 	</form>
 <?php
 	}
-	else echo "<h3>Installation finished. Go back to <a href='index.php'>Main Page</a></h3>";
+	else echo "<h3>Installation finished. Go back to <a href='..\\index.php'>Main Page</a></h3>";
 
 	require_once "..\\templates\\footer.php"
 ?>
