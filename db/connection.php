@@ -1,10 +1,12 @@
 <?php
+	require_once "config.php";
+
 	class DB {
 		public $conn;
-		private $servername = "localhost";
-		private $username = "root";
-		private $password = "admin";
-		private $dbname = "db_todo_list";
+		private $servername = DB_HOST;
+		private $username = DB_USERNAME;
+		private $password = DB_PASSWORD;
+		private $dbname = DB_NAME;
 
 		function __construct(){
 			try{

@@ -23,6 +23,9 @@
 
 	else{
 		define('LOGGED_IN', false);
+		if(isset($_SESSION['login_failed'])){
+			if($_SESSION['login_failed']) echo "User or password don´t match";  	//SO UGLY OPTION. FIX IT!!
+		}
 	}
 
 	/*FUNCTIONS*/

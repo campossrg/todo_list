@@ -1,10 +1,47 @@
 <?php
-	/*
-	if logged_in == true header(Location: home.php)
+	require_once "includes\\common.php";
 
-	else header(Location: login.php)
+	if(LOGGED_IN == true) header("Location: index.php");
 
-	if user_registered == true SESSION[user_id] = user_id
-	else echo register didn´t work
-	*/
+	if(isset($_POST['btnLoginSubmit'])){
+		$user = $_POST['txtLoginName'];
+		$pass = $_POST['txtLoginPass'];
+
+		$error;
+		if(empty($user)) $error[] = "User is empty!!";
+		if(empty($pass)) $error[] = "Pass is empty!!";
+		if(isset($error)){
+			foreach ($error as $e) {
+				echo "<p>". $e ."</p>";
+			}
+			echo "Login couldn´t be completed.<br>Please try to login again: <a href='index.php'>LOGIN</a>";
+		}
+
+		else{
+			$query = "SELECT * from table_login WHERE loginUserName = '". $user ."'";
+			$hash = md5(MD5_SALT.$pass);
+
+			try{
+				$sql = $db->conn->query($query);
+
+				if(!$sql){
+					throw new PDOException("Error Processing the query", 1);
+				}
+				else{
+					$_SESSION['login_failed'] = true;		//We assume that login failed
+
+					foreach ($sql as $row) {
+						if($row['loginPassword'] === $hash){
+							$_SESSION['user_id'] = $user;
+							$_SESSION['login_failed'] = false;
+						}
+					}
+					header("Location: index.php");
+				}
+			}
+			catch(PDOException $e){
+				echo "Login couldn´t be completed due to: ". $e;
+			}
+		}
+	}
 ?>
