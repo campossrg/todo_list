@@ -22,7 +22,8 @@ FUNCTIONALITY
 - <del>Tag note</del>
 - <del>Search note</del>
 - <del>Install and setup form</del>
-- Login auth and register form
+- <del>Login auth and register form</del>
+- Logout func
 
 STYLE
 - Add style to the webpage:

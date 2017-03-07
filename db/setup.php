@@ -64,7 +64,7 @@
 							$line = "\tdefine('DB_NAME', '". $dbname ."'); \n";
 							fwrite($configFile, $line);
 
-							$line = "\tdefine('MD5_SALT', md5(time().'#FF15924OLQWTY')); \n";
+							$line = "\tdefine('MD5_SALT', md5('#FF15924OLQWTY')); \n"; //add time()
 							fwrite($configFile, $line);
 
 							//urlname to write

@@ -21,9 +21,14 @@
 						    <i class="fa fa-search" aria-hidden="true"> SEARCH</i>
 						</button>
 					</div>
-					<div class="col-sm-4">
+					<div class="col-sm-2">
 						<button type="submit" class="btn btn-default" name="btnNewNote">
 							<i class="fa fa-plus" aria-hidden="true"> ADD NOTE</i>
+						</input>
+					</div>
+					<div class="col-sm-2">
+						<button type="submit" class="btn btn-default" name="btnLogout">
+							<i class="fa fa-plus" aria-hidden="true"> LOGOUT</i>
 						</input>
 					</div>
 					<select name='tagSelectForm' onchange="document.getElementById('optionsBarForm').submit();"> <!--Select the option without submit-->
@@ -51,6 +56,7 @@
 					<?php 
 						if(isset($_POST['btnNewNote'])) require "templates\\newNoteForm.php";					//NEW FORM
 						if(isset($_POST['btnEditNote'])) require "templates\\editNoteForm.php";					//EDIT FORM
+						if(isset($_POST['btnLogout'])) session_destroy();										//LOGOUT
 						if(isset($_POST['btnSearchNote'])) searchNotes();										//SEARCH
 						if(isset($_POST['tagSelectForm'])) showSelectedTag();									//TAGS
 						if(isset($_POST['btnDeleteNote'])) require "templates\\confirmEraseForm.php";			//DELETE FORM

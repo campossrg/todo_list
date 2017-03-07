@@ -29,7 +29,7 @@
 	               	</div>
 	            </div> 
 				<div class="main-login main-center">
-					<form class="form-horizontal" method="post" action="..\\register.php">
+					<form class="form-horizontal" method="post" action="../../register.php">
 
 						<div class="form-group">
 							<label for="username" class="cols-sm-2 control-label">Username</label>
