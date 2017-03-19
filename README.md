@@ -4,30 +4,16 @@ TODO LIST
 Todo list is a Evernote style web for managing your personal thougths
 ---------------------------------------------------------------------
 
-The main objective of this project is learn about the style and functions of a notes managing tool like Evernote. This webpage
-will control a list of notes classified by categories and in a near future keeped on subject notebooks.
+Todo list application is a dinamic list of notes to organize your tasks. It can be categorize by notebooks to keep notes sorted by subject.
+Please follow next steps to deploy your todo list app:
 
-BASICS
-- <del>Build the skeleton of the project</del>
-- <del>Show the content of the selected value on left panel.</del>
-- <del>Add an "delete" button.</del>
-- <del>Add an "erase" button.</del>
-- <del>Add tags to notes</del>
-- <del>Add notebook for each collection of notes</del>
+- First create a database on your server to link the application.
+- Set whole project on your web server root (E.g. /var/www/html)
+- Launch the web and follow the instructions to automatically configure you DB.
+- Register an user to start using TODO LIST.
 
-FUNCTIONALITY
-- <del>New note </del>
-- <del>Edit note </del>
-- <del>Delete note </del>
-- <del>Tag note</del>
-- <del>Search note</del>
-- <del>Install and setup form</del>
-- <del>Login auth and register form</del>
-- Logout func
-
-STYLE
-- Add style to the webpage:
-	Notebooks on left.
-	Notes of notebook on upper-right.
-	Content of notes on lower-right.
-- Add collection tabs on top
+FOOT NOTES
+**********
+Technologies used on the project:
+- Background coded on PHP with MySQL DB
+- Styles on Javascript plus Bootstrap
