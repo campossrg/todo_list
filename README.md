@@ -1,5 +1,4 @@
 # TODO LIST
-=========
 Todo list is an Evernote style web for managing your personal thougths
 ---------------------------------------------------------------------
 
