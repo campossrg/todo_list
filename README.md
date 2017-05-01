@@ -13,7 +13,6 @@ Please follow next steps to deploy your todo list app.
 
 
 ## FOOT NOTES
-**********
 Technologies used on the project:
 - Background coded on PHP with MySQL DB
 - Styling on Javascript plus Bootstrap
